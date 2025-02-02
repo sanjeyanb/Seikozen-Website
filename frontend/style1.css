@@ -1,0 +1,137 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+    line-height: 1.6;
+}
+.seikozen-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+  }
+  .seikozen-name:hover{
+    background-color: rgb(251, 75, 55);
+  }
+/* Navbar */
+.navbar {
+    background-color: rgb(251, 75, 55); /* Red navbar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #fff; /* White text */
+}
+
+.navbar nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar nav ul li {
+    margin-left: 1.5rem;
+}
+
+.navbar nav ul li a {
+    text-decoration: none;
+    color: #fff; /* White links */
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.navbar nav ul li a.active,
+.navbar nav ul li a:hover {
+    color: #000; /* Black text on hover or active */
+    background-color: #fff; /* White background */
+    padding: 0.3rem 0.7rem;
+    border-radius: 5px;
+}
+
+/* Welcome Section */
+.dashboard .welcome {
+    text-align: center;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #111; /* Slightly lighter black */
+    border-radius: 10px;
+    max-width: 800px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+.dashboard .welcome h2 {
+    color: rgb(251, 75, 55); /* Red heading */
+    margin-bottom: 1rem;
+}
+
+/* Features Section */
+.features {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 2rem auto;
+    padding: 2rem;
+    max-width: 1200px;
+}
+
+.feature-card {
+    background-color: #111; /* Slightly lighter black */
+    border: 1px solid rgb(251, 75, 55); /* Red border */
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    flex: 1 1 300px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card h3 {
+    color: rgb(251, 75, 55); /* Red heading */
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    margin-bottom: 1rem;
+}
+
+.feature-card .btn {
+    background-color: rgb(251, 75, 55); /* Red button */
+    color: #fff; /* White text */
+    text-decoration: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.feature-card .btn:hover {
+    background-color: #000; /* Black button on hover */
+    color: rgb(251, 75, 55); /* Red text on hover */
+    border: 1px solid rgb(251, 75, 55);
+}
+
+.feature-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.7);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: rgb(251, 75, 55); /* Red footer */
+    color: #fff; /* White text */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

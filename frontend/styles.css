@@ -1,0 +1,343 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.imp2{
+  font-size: 80px;
+  margin: 0px;
+  padding: 0px;
+}
+/* Header Bar Styling */
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: transparent;
+}
+
+/* Logo Container Styling */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Logo Image Styling */
+.logo {
+  width: 40px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Seikozen Name Styling */
+.seikozen-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+}
+.seikozen-name:hover {
+  background-color: rgb(251, 75, 55);
+}
+
+/* Login Link Styling */
+.login-link {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: none;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/* Body Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: rgb(251, 75, 55);
+  color: #fffbfb;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+/* Imp Text Styling */
+.imp {
+  color: #ffffff;
+  font-size: 100px;
+  font-weight: 700;
+}
+/* Section Styling */
+.split-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: center;
+  padding: 60px 20px;
+  margin: 0px;
+  background-color: #010001;
+}
+
+.split-section > div {
+  flex: 1;
+  text-align: center;
+}
+
+.split-section img {
+  max-width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Home Section */
+#home {
+  background-color: rgb(251, 75, 55);
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+#home h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 4rem;
+  line-height: 1.2;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+/* Button Styling */
+.button {
+  background-color: rgb(251, 75, 55);
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #000;
+  color: rgb(251, 75, 55);
+  border: 1px solid rgb(251, 75, 55);
+}
+
+/* Trusted Partners Section */
+.trusted-partners {
+  background-color: #010001;
+  padding : 90px 30px;
+    margin: 0px;
+  text-align: center;
+}
+
+.partner-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+  padding: 20px;
+}
+
+.partner-logos img {
+  max-width: 100%;
+  max-height: 150px;
+  object-fit: contain;
+  transition: filter 0.3s ease;
+}
+
+.partner-logos img:hover {
+  filter: grayscale(50%);
+}
+
+/* Team Section */
+#team {
+  background-color: #121212;
+  padding: 60px 20px;
+  margin-bottom: 0;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.member img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.member h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.member .role {
+  color: #888;
+}
+
+/* Features Section */
+#features {
+  background-color: #121212;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: center;
+  padding: 60px 20px;
+}
+
+#features .row {
+  display: flex;
+  flex-direction: row; /* Content on left, image on right */
+  align-items: center;
+  gap: 20px;
+}
+
+#features .column {
+  flex: 1;
+  text-align: left;
+}
+
+/* Smart Contracts Section */
+#smart-contracts {
+  background-color:#010001; /* Match your section background */
+  padding: 60px 20px;
+}
+
+#smart-contracts .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: center;
+}
+
+#smart-contracts .column {
+  flex: 1;
+  text-align: left;
+}
+
+#smart-contracts .column img {
+  max-width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+#smart-contracts ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#smart-contracts ul li {
+  margin-bottom: 10px;
+}
+
+#smart-contracts .button {
+  background-color: rgb(251, 75, 55);
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+#smart-contracts .button:hover {
+  background-color: #000;
+  color: rgb(251, 75, 55);
+  border: 1px solid rgb(251, 75, 55);
+}
+
+/* Contact Section */
+#contact {
+  background-color: #010001;
+  padding: 60px 20px;
+  margin-bottom: 0 !important; /* Override any margin */
+}
+
+.contact-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.contact-wrapper iframe {
+  flex: 1;
+  border-radius: 10px;
+  border: none;
+  height: calc(100% - 60px);
+}
+
+.contact-wrapper form {
+  flex: 1;
+}
+
+.contact-wrapper form input,
+.contact-wrapper form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border-color: #fffbfb;
+  background-color: #010001;
+}
+
+.contact-wrapper form button {
+  background-color: rgb(251, 75, 55); /* Red button */
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.contact-wrapper form button:hover {
+  background-color: #000;
+  color: rgb(251, 75, 55);
+  border: 1px solid rgb(251, 75, 55);
+}
+
+/* Footer Styles */
+footer {
+  background-color: rgb(251, 75, 55);
+  padding: 0px;
+  color: #fefcfc;
+  text-align: center;
+}
+
+footer nav a {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+footer nav a:hover {
+  color: #121212;
+}
+
+footer p {
+  font-size: 0.8rem;
+  color: #ffffff;
+  margin-top: 20px;
+}

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retailer Stats</title>
+    <link rel="stylesheet" href="style1.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Styles for the page */
+        .stats-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #111;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .stats-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .stats-header h2 {
+            color: rgb(251, 75, 55);
+        }
+
+        .stats-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-box {
+            background-color: #222;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .stat-box h4 {
+            color: rgb(251, 75, 55);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box p {
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .stat-change {
+            font-size: 1rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-change span {
+            font-size: 1.2rem;
+            margin-left: 0.5rem;
+        }
+
+        .stat-change.increase span {
+            color: #28a745; /* Green for increase */
+        }
+
+        .stat-change.decrease span {
+            color: #dc3545; /* Red for decrease */
+        }
+
+        .chart {
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="index.html" class="seikozen-name">Seikozen</a>
+            <nav>
+                <ul>
+                    <li><a href="retailer.html">Dashboard</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="stats-container">
+        <section class="stats-header">
+            <h2>📊 Retailer Statistics</h2>
+        </section>
+
+        <section class="stats-details">
+            <div class="stat-box">
+                <h4>💰 Total Revenue This Month</h4>
+                <p>$4.5M</p>
+                <div class="stat-change increase">
+                    <span>&#8593; 8%</span>
+                </div>
+            </div>
+            <div class="stat-box">
+                <h4>⭐ Best-Selling Drug</h4>
+                <p>Painkiller</p>
+            </div>
+            <div class="stat-box">
+                <h4>❌ Out-of-Stock Medicines</h4>
+                <p>6</p>
+                <div class="stat-change increase">
+                    <span>&#8593; 2%</span>
+                </div>
+            </div>
+            <div class="stat-box">
+                <h4>🏢 Pharmacy Distribution Network</h4>
+                <p>320 locations</p>
+                <div class="stat-change increase">
+                    <span>&#8593; 3%</span>
+                </div>
+            </div>
+            <div class="stat-box">
+                <h4>📦 Stock Levels</h4>
+                <p>Insulin Vials: 750 units<br>Painkiller Tablets: 1,200 packs<br>Liquid Antibiotics: 500 bottles<br>Eye Drops: 850 units<br>Inhalers: 600 units</p>
+                <div class="stat-change decrease">
+                    <span>&#8595; Balanced</span>
+                </div>
+            </div>
+            <div class="stat-box">
+                <h4>⚠️ Out-of-Stock Alerts</h4>
+                <p>3 items</p>
+                <div class="stat-change increase">
+                    <span>&#8593; 1%</span>
+                </div>
+            </div>
+            <div class="stat-box">
+                <h4>💊 Most Prescribed Drug</h4>
+                <p>Insulin X</p>
+            </div>
+            <div class="stat-box">
+                <h4>💵 Sales Revenue (This Month)</h4>
+                <p>$2.1M</p>
+                <div class="stat-change increase">
+                    <span>&#8593; 5%</span>
+                </div>
+            </div>
+            <div class="stat-box">
+                <h4>📞 Customer Complaints</h4>
+                <p>4 pending</p>
+                <div class="stat-change decrease">
+                    <span>&#8595; 1%</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="chart">
+            <canvas id="stockLevelChart" style="max-height: 300px;"></canvas>
+        </section>
+    </main>
+
+    <script>
+        // Chart: Stock Levels
+        const stockLevelCtx = document.getElementById('stockLevelChart').getContext('2d');
+        new Chart(stockLevelCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Insulin Vials', 'Painkiller Tablets', 'Liquid Antibiotics', 'Eye Drops', 'Inhalers'],
+                datasets: [{
+                    label: 'Stock Levels',
+                    data: [750, 1200, 500, 850, 600],
+                    backgroundColor: [
+                        'rgba(251, 75, 55, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(255, 205, 86, 0.7)',
+                        'rgba(153, 102, 255, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(251, 75, 55, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 205, 86, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
