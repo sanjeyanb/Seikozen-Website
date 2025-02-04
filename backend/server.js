@@ -8,7 +8,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve the main HTML page
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'add_product.html'));
+    res.sendFile(path.join(__dirname, 'public', 'views', 'add_product.html'));
 });
 
 // Start the server

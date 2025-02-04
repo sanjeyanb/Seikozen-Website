@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retailer Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      /* General Styles */
+      body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #000; /* Black background */
+          color: #fff; /* White text */
+          line-height: 1.6;
+      }
+      .seikozen-name {
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: #ffffff;
+          font-family: 'Arial', sans-serif;
+      }
+      .seikozen-name:hover {
+          background-color: rgb(251, 75, 55);
+      }
+      /* Navbar */
+      .navbar {
+          background-color: rgb(251, 75, 55); /* Red navbar */
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1rem 2rem;
+      }
+
+      .navbar h1 {
+          margin: 0;
+          font-size: 1.8rem;
+          color: #fff; /* White text */
+      }
+
+      .navbar nav ul {
+          list-style: none;
+          display: flex;
+          margin: 0;
+          padding: 0;
+      }
+
+      .navbar nav ul li {
+          margin-left: 1.5rem;
+      }
+
+      .navbar nav ul li a {
+          text-decoration: none;
+          color: #fff; /* White links */
+          font-weight: bold;
+          transition: color 0.3s ease;
+      }
+
+      .navbar nav ul li a.active,
+      .navbar nav ul li a:hover {
+          color: #000; /* Black text on hover or active */
+          background-color: #fff; /* White background */
+          padding: 0.3rem 0.7rem;
+          border-radius: 5px;
+      }
+
+      /* Welcome Section */
+      .dashboard .welcome {
+          text-align: center;
+          margin: 2rem auto;
+          padding: 2rem;
+          background-color: #111; /* Slightly lighter black */
+          border-radius: 10px;
+          max-width: 800px;
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+      }
+
+      .dashboard .welcome h2 {
+          color: rgb(251, 75, 55); /* Red heading */
+          margin-bottom: 1rem;
+      }
+
+      /* Features Section */
+      .features {
+          display: flex;
+          justify-content: space-around;
+          flex-wrap: wrap;
+          gap: 2rem;
+          margin: 2rem auto;
+          padding: 2rem;
+          max-width: 1200px;
+      }
+
+      .feature-card {
+          background-color: #111; /* Slightly lighter black */
+          border: 1px solid rgb(251, 75, 55); /* Red border */
+          border-radius: 10px;
+          padding: 1.5rem;
+          text-align: center;
+          flex: 1 1 300px;
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .feature-card h3 {
+          color: rgb(251, 75, 55); /* Red heading */
+          margin-bottom: 1rem;
+      }
+
+      .feature-card p {
+          margin-bottom: 1rem;
+      }
+
+      .feature-card .btn {
+          background-color: rgb(251, 75, 55); /* Red button */
+          color: #fff; /* White text */
+          text-decoration: none;
+          padding: 0.7rem 1.5rem;
+          border-radius: 5px;
+          font-weight: bold;
+          transition: background-color 0.3s ease;
+      }
+
+      .feature-card .btn:hover {
+          background-color: #000; /* Black button on hover */
+          color: rgb(251, 75, 55); /* Red text on hover */
+          border: 1px solid rgb(251, 75, 55);
+      }
+
+      .feature-card:hover {
+          transform: scale(1.05);
+          box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.7);
+      }
+
+      /* Statistics Section */
+      .statistics {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 2rem;
+          margin: 2rem auto;
+          padding: 2rem;
+          background-color: #111;
+          border-radius: 10px;
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+          max-width: 1200px;
+      }
+
+      .stat-card {
+          background-color: #222;
+          padding: 1.5rem;
+          border-radius: 10px;
+          text-align: center;
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .stat-card h4 {
+          color: rgb(251, 75, 55);
+          margin-bottom: 0.5rem;
+          font-size: 1.2rem;
+      }
+
+      .stat-card canvas {
+          margin: 1rem 0;
+      }
+
+      .stat-card p {
+          font-size: 1rem;
+          margin: 0;
+          color: #fff;
+      }
+
+      .stat-card:hover {
+          transform: scale(1.05);
+          box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.7);
+      }
+
+      /* Footer */
+      footer {
+          text-align: center;
+          padding: 1rem;
+          background-color: rgb(251, 75, 55); /* Red footer */
+          color: #fff; /* White text */
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+      }
+  </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="../../index.html" class="seikozen-name">Seikozen</a>
+            <nav>
+                <ul>
+                    <li><a href="retailer_stats.html">📈 Statistics</a></li>
+                </ul>
+            </nav>
+            <nav>
+                <ul>
+                    <li><a href="login.html">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="dashboard">
+        <section class="welcome">
+            <h2>👋 Welcome, Retailer</h2>
+            <p>Track sales, revenue trends, and market demand effortlessly.</p>
+        </section>
+
+        <section class="statistics">
+            <div class="stat-card">
+                <h4>📊 Sales by Drug Category</h4>
+                <canvas id="barChart"></canvas>
+            </div>
+            <div class="stat-card">
+                <h4>📈 Revenue Growth Trends</h4>
+                <canvas id="lineChart"></canvas>
+            </div>
+            <div class="stat-card">
+                <h4>🥧 Market Demand by Region</h4>
+                <canvas id="pieChart"></canvas>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <h3>📋 View products</h3>
+                <p>Keep track of your products in real-time with an organized list.</p>
+                <a href="view_products.html" class="btn">View Products</a>
+            </div>
+            <div class="feature-card">
+                <h3>📋 Check Out-of-Stock Medicines</h3>
+                <p>Stay updated on low-stock or out-of-stock medicines.</p>
+                <a href="view_products.html" class="btn">Check Now</a>
+            </div>
+            <div class="feature-card">
+                <h3>📊 Generate Demand Forecasts</h3>
+                <p>Predict demand trends to manage stock efficiently.</p>
+                <a href="view_products.html" class="btn">Generate Now</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Bar Chart: Sales by Drug Category
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Painkillers', 'Antibiotics', 'Vitamins', 'Cough Syrups'],
+                datasets: [{
+                    label: 'Sales (in units)',
+                    data: [300, 450, 200, 150],
+                    backgroundColor: 'rgba(251, 75, 55, 0.7)',
+                    borderColor: 'rgba(251, 75, 55, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // Line Chart: Revenue Growth Trends
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+        new Chart(lineCtx, {
+            type: 'line',
+            data: {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                datasets: [{
+                    label: 'Revenue (in $)',
+                    data: [5000, 7000, 8500, 10000],
+                    backgroundColor: 'rgba(251, 75, 55, 0.3)',
+                    borderColor: 'rgba(251, 75, 55, 1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' }
+                }
+            }
+        });
+
+        // Pie Chart: Market Demand by Region
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: ['North', 'South', 'East', 'West'],
+                datasets: [{
+                    data: [40, 30, 20, 10],
+                    backgroundColor: [
+                        'rgba(251, 75, 55, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' }
+                }
+            }
+        });
+    </script>
+</body

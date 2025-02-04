@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distributor Dashboard</title>
+    <link rel="stylesheet" href="../css/style1.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background-color: rgb(251, 75, 55);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+        }
+
+        .navbar nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        .navbar nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .navbar nav ul li a:hover {
+            color: #000;
+            background-color: #fff;
+            padding: 0.3rem 0.7rem;
+            border-radius: 5px;
+        }
+
+        .dashboard .welcome {
+            text-align: center;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #111;
+            border-radius: 10px;
+            max-width: 800px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .dashboard .welcome h2 {
+            color: rgb(251, 75, 55);
+            margin-bottom: 1rem;
+        }
+
+        .statistics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #111;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+            max-width: 1200px;
+        }
+
+        .stat-card {
+            background-color: #222;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .stat-card h4 {
+            color: rgb(251, 75, 55);
+            margin-bottom: 1rem;
+        }
+
+        .stat-card canvas {
+            margin: 1rem 0;
+        }
+
+        .controls {
+            text-align: center;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #111;
+            border-radius: 10px;
+            max-width: 800px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .controls input[type="text"] {
+            padding: 0.7rem;
+            width: 70%;
+            margin-right: 1rem;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .controls button {
+            padding: 0.7rem 1.5rem;
+            background-color: rgb(251, 75, 55);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .controls button:hover {
+            background-color: #000;
+            color: rgb(251, 75, 55);
+        }
+        #mapView {
+        height: 200px;
+        width: 100%;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="../../index.html" class="seikozen-name">Seikozen</a>
+            <nav>
+                <ul>
+                    <li><a href="distributor_stats.html">📈statistics</a></li>
+                </ul>
+            </nav>
+            <nav>
+                <ul>
+                    <li><a href="login.html">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="dashboard">
+        <section class="welcome">
+            <h2>Welcome, Distributor</h2>
+            <p>Ensure safe and timely delivery of pharmaceutical products with real-time monitoring.</p>
+        </section>
+        <!-- section written for manage shipments -->
+        <section class="controls">
+            <h3>🔘 Manage Shipments</h3>
+            <div>
+                <input type="text" id="shipmentIdInput" placeholder="Enter Shipment ID">
+                <button onclick="trackShipment()">Track</button>
+            </div>
+            <div style="margin-top: 1rem;">
+                <button onclick="dispatchShipment()">Dispatch New Shipment</button>
+                <button onclick="checkDelayedOrders()">Check Delayed Orders</button>
+                <button onclick="viewTemperatureLogs()">View Temperature Logs</button>
+            </div>
+            <div id="shipmentDetails" style="margin-top: 1rem; padding: 1rem; background-color: #222; border-radius: 5px; display: none;"></div>
+        </section>
+        
+
+        <section class="statistics">
+            <div class="stat-card">
+                <h4>📈 Delivery Performance Trends</h4>
+                <canvas id="lineChart"></canvas>
+            </div>
+            <div class="stat-card">
+                <h4>🗺️ Live Shipment Tracking</h4>
+                <div id="mapView"></div>
+            </div>
+            <div class="stat-card">
+                <h4>📊 Temperature Fluctuations</h4>
+                <canvas id="barChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <script>
+    // Sample Shipments Data
+    const shipments = [
+        { id: "12345", status: "In Transit", location: "London, UK", temperature: "6°C", delayed: false },
+        { id: "67890", status: "Delayed", location: "Berlin, Germany", temperature: "8°C", delayed: true },
+        { id: "54321", status: "Delivered", location: "Paris, France", temperature: "5°C", delayed: false }
+    ];
+
+    function trackShipment() {
+        const shipmentId = document.getElementById("shipmentIdInput").value.trim();
+        const shipment = shipments.find(s => s.id === shipmentId);
+
+        if (shipment) {
+            document.getElementById("shipmentDetails").innerHTML = `
+                <p><strong>Shipment ID:</strong> ${shipment.id}</p>
+                <p><strong>Status:</strong> ${shipment.status}</p>
+                <p><strong>Current Location:</strong> ${shipment.location}</p>
+                <p><strong>Temperature:</strong> ${shipment.temperature}</p>
+            `;
+            document.getElementById("shipmentDetails").style.display = "block";
+        } else {
+            alert("Shipment not found!");
+            document.getElementById("shipmentDetails").style.display = "none";
+        }
+    }
+
+    function dispatchShipment() {
+        const newShipmentId = prompt("Enter new shipment ID:");
+        if (newShipmentId) {
+            shipments.push({ id: newShipmentId, status: "Dispatched", location: "Unknown", temperature: "6°C", delayed: false });
+            alert(`Shipment ${newShipmentId} has been dispatched.`);
+        }
+    }
+
+    function checkDelayedOrders() {
+        const delayedOrders = shipments.filter(s => s.delayed);
+        if (delayedOrders.length > 0) {
+            alert(`Delayed Shipments:\n${delayedOrders.map(s => `ID: ${s.id}, Location: ${s.location}`).join("\n")}`);
+        } else {
+            alert("No delayed shipments.");
+        }
+    }
+
+    function viewTemperatureLogs() {
+        alert(`Temperature Logs:\n${shipments.map(s => `Shipment ID: ${s.id}, Temperature: ${s.temperature}`).join("\n")}`);
+    }
+
+
+
+
+        // Line Chart: Delivery Performance Trends
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+        new Chart(lineCtx, {
+            type: 'line',
+            data: {
+                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                datasets: [{
+                    label: 'On-Time Deliveries (%)',
+                    data: [95, 92, 97, 90, 93, 89, 94],
+                    backgroundColor: 'rgba(251, 75, 55, 0.3)',
+                    borderColor: 'rgba(251, 75, 55, 1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' }
+                }
+            }
+        });
+
+        // Bar Chart: Temperature Fluctuations
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Truck 1', 'Truck 2', 'Truck 3', 'Truck 4'],
+                datasets: [{
+                    label: 'Temperature (°C)',
+                    data: [6, 7, 5, 8],
+                    backgroundColor: [
+                        'rgba(251, 75, 55, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' }
+                }
+            }
+        });
+
+
+
+        // Initialize the map
+    const map = L.map('mapView').setView([51.505, -0.09], 13); // Set initial view to a location with zoom level 13
+
+// Add OpenStreetMap tiles
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+//marker added for a shipment
+const shipmentMarker = L.marker([51.505, -0.09]).addTo(map);
+
+//popup to the marker
+shipmentMarker.bindPopup("<b>Shipment ID: 12345</b><br>Status: In Transit").openPopup();
+
+// Simulate live tracking with periodic updates
+const shipmentRoute = [
+    [51.505, -0.09],
+    [51.51, -0.1],
+    [51.515, -0.12],
+    [51.52, -0.11]
+];
+
+let currentStep = 0;
+
+setInterval(() => {
+    if (currentStep < shipmentRoute.length) {
+        shipmentMarker.setLatLng(shipmentRoute[currentStep]);
+        map.setView(shipmentRoute[currentStep], 13); // Center the map on the new location
+        currentStep++;
+    }
+}, 2000); // Update every 2 seconds
+    </script>
+</body>
+</html>

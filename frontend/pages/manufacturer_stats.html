@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manufacturer Stats</title>
+    <link rel="stylesheet" href="../css/style1.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .stats-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #111;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .stats-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .stats-header h2 {
+            color: rgb(251, 75, 55);
+        }
+
+        .stats-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-box {
+            background-color: #222;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .stat-box h4 {
+            color: rgb(251, 75, 55);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box p {
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .chart {
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        .stat-change {
+            font-size: 1rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-change span {
+            font-size: 1.2rem;
+            margin-left: 0.5rem;
+        }
+
+        .stat-change.increase span {
+            color: #28a745; /* Green for increase */
+        }
+
+        .stat-change.decrease span {
+            color: #dc3545; /* Red for decrease */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="../../index.html" class="seikozen-name">Seikozen</a>
+            <nav>
+                <ul>
+                    <li><a href="manufacturer.html">Dashboard</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="stats-container">
+        <section class="stats-header">
+            <h2>📊 Manufacturer Statistics</h2>
+        </section>
+
+        <section class="stats-details">
+            <div class="stat-box">
+                <h4>📦 Total Active Orders</h4>
+                <p>3,520</p>
+                <div class="stat-change increase">
+                    <span>&#8593; 5%</span>
+                </div>
+            </div>
+            <div class="stat-box">
+                <h4>🚚 Pending Shipments</h4>
+                <p>452</p>
+                <div class="stat-change decrease">
+                    <span>&#8595; 2%</span>
+                </div>
+            </div>
+            <div class="stat-box">
+                <h4>🏭 Warehouse Capacity</h4>
+                <p>75%</p>
+                <div class="stat-change increase">
+                    <span>&#8593; 3%</span>
+                </div>
+            </div>
+            <div class="stat-box">
+                <h4>⏱️ On-Time Delivery Rate</h4>
+                <p>94%</p>
+                <div class="stat-change increase">
+                    <span>&#8593; 1%</span>
+                </div>
+            </div>
+            <div class="stat-box">
+                <h4>🤝 Active Suppliers</h4>
+                <p>21</p>
+                <div class="stat-change increase">
+                    <span>&#8593; 4%</span>
+                </div>
+            </div>
+            <div class="stat-box">
+                <h4>🌡️ Temperature-Sensitive Shipments</h4>
+                <p>128</p>
+                <div class="stat-change decrease">
+                    <span>&#8595; 1%</span>
+                </div>
+            </div>
+            <div class="stat-box">
+                <h4>⚙️ Current Production Rate</h4>
+                <p>5,200 units/day</p>
+                <div class="stat-change increase">
+                    <span>&#8593; 2%</span>
+                </div>
+            </div>
+            <div class="stat-box">
+                <h4>🏭 Active Manufacturing Plants</h4>
+                <p>4</p>
+            </div>
+            <div class="stat-box">
+                <h4>📦 Batch Tracking</h4>
+                <p>Lot# 23789 | Status: In QC</p>
+            </div>
+            <div class="stat-box">
+                <h4>✅ Quality Control Pass Rate</h4>
+                <p>97%</p>
+                <div class="stat-change increase">
+                    <span>&#8593; 1%</span>
+                </div>
+            </div>
+            <div class="stat-box">
+                <h4>🔋 Raw Material Levels</h4>
+                <p>Active Ingredients: 82%<br>Excipients: 70%<br>Packaging Materials: 90%</p>
+                <div class="stat-change increase">
+                    <span>&#8593; Balanced</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="chart">
+            <canvas id="rawMaterialChart" style="max-height: 300px;"></canvas>
+        </section>
+
+    </main>
+
+    <script>
+        // Chart: Raw Material Levels
+        const rawMaterialCtx = document.getElementById('rawMaterialChart').getContext('2d');
+        new Chart(rawMaterialCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Active Ingredients', 'Excipients', 'Packaging Materials'],
+                datasets: [{
+                    data: [82, 70, 90],
+                    backgroundColor: [
+                        'rgba(251, 75, 55, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(75, 192, 192, 0.7)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
