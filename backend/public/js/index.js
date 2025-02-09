@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
   if (window.ethereum) {
-      const web3 = new Web3(window.ethereum);
+      const web3 = new web3(window.ethereum);
 
-      const contractAddress = "0x77812Ea5B3C255C1F68f2F411d2aF227B98fD850"; // Updated address
+      const contractAddress = "0x09B25fa08249eF8c92f64EC8de8cd124D86fbf16"; // Updated address
       const abi = [
         {
             "anonymous": false,

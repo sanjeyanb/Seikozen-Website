@@ -83,9 +83,9 @@
 <body>
 
     <div class="navbar">
-        <a href="../../../frontend/index.html">Seikozen</a>
-        <a href="../../../frontend/manufacturer_stats.html">📊 Statistics</a>
-        <a href="../../../frontend/manufacturer.html">Logout</a>
+        <a href="../../frontend/index.html">Seikozen</a>
+        <a href="../../frontend/manufacturer_stats.html">📊 Statistics</a>
+        <a href="../../frontend/manufacturer.html">Logout</a>
     </div>
 
     <div class="container">
@@ -103,7 +103,7 @@
             <input type="email" id="receiver_email" placeholder="Receiver Email" required>
             <button type="submit">Add Product</button>
         </form>
-        <a href="../../../frontend/pages/manufacturer.html" class="btn-back">⬅ Back to Dashboard</a>
+        <a href="manufacturer_dashboard.html" class="btn-back">⬅ Back to Dashboard</a>
     </div>
 
     <script>
@@ -156,7 +156,7 @@
     }
             ];
             
-            const contractAddress = "0x77812Ea5B3C255C1F68f2F411d2aF227B98fD850"; // Replace with your deployed contract address
+            const contractAddress = "0x09B25fa08249eF8c92f64EC8de8cd124D86fbf16"; // Replace with your deployed contract address
             const contract = new web3.eth.Contract(abi, contractAddress);
 
             try {

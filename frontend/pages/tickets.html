@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raise Ticket - SEIKOZEN</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> <!-- For PDF -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 500px;
+            background: #111;
+            padding: 30px;
+            margin: 50px auto;
+            box-shadow: 0px 4px 8px rgba(251, 75, 55, 0.5);
+            border-radius: 10px;
+            border: 1px solid rgb(251, 75, 55);
+        }
+        h2 {
+            color: rgb(251, 75, 55);
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #555;
+            font-size: 16px;
+            background-color: #222;
+            color: #fff;
+        }
+        button {
+            background-color: rgb(251, 75, 55);
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background-color: #000;
+            border: 1px solid rgb(251, 75, 55);
+            color: rgb(251, 75, 55);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📝 Raise a Ticket</h2>
+        <form id="ticketForm" action="https://submit-form.com/N8h5niuz5" method="POST">
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+            <input type="text" id="subject" name="subject" placeholder="Subject" required>
+            <textarea id="message" name="message" rows="4" placeholder="Describe your issue..." required></textarea>
+            <button type="button" onclick="generatePDF()">Submit Ticket</button>
+        </form>
+    </div>
+
+    <script>
+        async function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const subject = document.getElementById("subject").value;
+            const message = document.getElementById("message").value;
+            const timestamp = new Date().toLocaleString();
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(18);
+            doc.text("SEIKOZEN - Ticket Report", 20, 20);
+            doc.setFontSize(12);
+            doc.text(`Date & Time: ${timestamp}`, 20, 30);
+            doc.text(`Name: ${name}`, 20, 40);
+            doc.text(`Email: ${email}`, 20, 50);
+            doc.text(`Subject: ${subject}`, 20, 60);
+            doc.text("Message:", 20, 70);
+            doc.setFont("helvetica", "normal");
+            doc.text(`${message}`, 20, 80, { maxWidth: 170 });
+            doc.save(`Ticket_${Date.now()}.pdf`);
+            document.getElementById("ticketForm").submit();
+        }
+    </script>
+</body>
+</html>
