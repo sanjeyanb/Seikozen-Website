@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard | Seikozen</title>
+  <style>
+    /* --- START OF CSS (combination of all provided styles) --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #000; color: #fff; line-height: 1.6; }
+    .seikozen-name { font-size: 1.5rem; font-weight: 600; color: #ffffff; font-family: 'Arial', sans-serif; }
+    .seikozen-name:hover{ background-color: rgb(251, 75, 55); }
+    .navbar { background-color: rgb(251, 75, 55); display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+    .navbar h1 { margin: 0; font-size: 1.8rem; color: #fff; }
+    .navbar nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
+    .navbar nav ul li { margin-left: 1.5rem; }
+    .navbar nav ul li a { text-decoration: none; color: #fff; font-weight: bold; transition: color 0.3s ease; }
+    .navbar nav ul li a.active, .navbar nav ul li a:hover { color: #000; background-color: #fff; padding: 0.3rem 0.7rem; border-radius: 5px; }
+    .dashboard .welcome { text-align: center; margin: 2rem auto; padding: 2rem; background-color: #111; border-radius: 10px; max-width: 800px; box-shadow: 0px 4px 8px rgba(0,0,0,0.7);}
+    .dashboard .welcome h2 { color: rgb(251, 75, 55); margin-bottom: 1rem;}
+    .features { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; margin: 2rem auto; padding: 2rem; max-width: 1200px;}
+    .feature-card { background-color: #111; border: 1px solid rgb(251, 75, 55); border-radius: 10px; padding: 1.5rem; text-align: center; flex: 1 1 300px; box-shadow: 0px 4px 8px rgba(0,0,0,0.7); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .feature-card h3 { color: rgb(251, 75, 55); margin-bottom: 1rem;}
+    .feature-card p { margin-bottom: 1rem;}
+    .feature-card .btn { background-color: rgb(251, 75, 55); color: #fff; text-decoration: none; padding: 0.7rem 1.5rem; border-radius: 5px; font-weight: bold; transition: background-color 0.3s ease; display: inline-block; border: none; cursor: pointer;}
+    .feature-card .btn:hover { background-color: #000; color: rgb(251, 75, 55); border: 1px solid rgb(251, 75, 55);}
+    .feature-card:hover { transform: scale(1.05); box-shadow: 0px 8px 16px rgba(0,0,0,0.7);}
+    .container { padding: 2rem; background-color: #111; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0,0,0,0.7); margin: 2rem auto; max-width: 800px;}
+    h1, h2 { color: rgb(251, 75, 55); text-align: center; margin-bottom: 1rem;}
+    form { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;}
+    label { font-weight: bold; }
+    input[type="text"] { padding: 0.7rem; border: 1px solid rgb(251, 75, 55); border-radius: 5px; background-color: #000; color: #fff;}
+    button.btn { background-color: rgb(251, 75, 55); color: #fff; border: none; padding: 0.7rem 1.5rem; cursor: pointer; border-radius: 5px; font-size: 1rem; text-transform: uppercase; font-weight: bold; transition: background-color 0.3s ease;}
+    button.btn:hover { background-color: #000; color: rgb(251, 75, 55); border: 1px solid rgb(251, 75, 55);}
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; background-color: #000; color: #fff;}
+    table, th, td { border: 1px solid rgb(251, 75, 55);}
+    th, td { padding: 0.8rem; text-align: left;}
+    th { background-color: rgb(251, 75, 55); color: #fff;}
+    footer { text-align: center; padding: 1rem; background-color: rgb(251, 75, 55); color: #fff; position: fixed; bottom: 0; width: 100%;}
+  </style>
+  <script>
+    function handleSearchUser(event) {
+      event.preventDefault();
+      const input = document.getElementById('search-user').value.trim();
+      if (input) {
+        alert(`Searching for user: ${input}`);
+        console.log(`Search user function called with: ${input}`);
+      } else {
+        alert("Please enter a user name or email to search.");
+      }
+    }
+    function handleAddProduct(event) {
+      event.preventDefault();
+      const input = document.getElementById('add-product').value.trim();
+      if (input) {
+        alert(`Adding new product: ${input}`);
+        console.log(`Add product function called with: ${input}`);
+      } else {
+        alert("Please enter a product name.");
+      }
+    }
+    function manageUsers() {
+      alert("Navigating to User Management section.");
+      console.log("Manage Users button clicked.");
+    }
+    function manageProducts() {
+      alert("Navigating to Product Controls section.");
+      console.log("Manage Products button clicked.");
+    }
+    function viewOrders() {
+      alert("Navigating to Orders & Tracking section.");
+      console.log("View Orders button clicked.");
+    }
+    function viewAnalytics() {
+      alert("Navigating to Analytics section.");
+      console.log("View Analytics button clicked.");
+    }
+    function viewAll(type) {
+      alert("Viewing all " + type);
+      console.log("View All clicked for " + type);
+    }
+    function manageEntity(type) {
+      alert("Managing " + type);
+      console.log("Manage clicked for " + type);
+    }
+    function trackOrders() {
+      alert("Tracking orders.");
+      console.log("Track Orders clicked.");
+    }
+    function logout() {
+      // Add any logout cleanup here if needed
+      window.location.href = 'login.html';
+    }
+  </script>
+</head>
+<body>
+  <div class="navbar">
+    <div class="seikozen-name">Seikozen Admin</div>
+    <nav>
+      <ul>
+        <li><a class="active" href="#">Dashboard</a></li>
+        <li><a href="#" onclick="manageUsers()">Users</a></li>
+        <li><a href="#" onclick="manageProducts()">Products</a></li>
+        <li><a href="#" onclick="viewOrders()">Orders</a></li>
+        <li><a href="#" onclick="logout()">Logout</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="dashboard">
+    <div class="welcome">
+      <h2>Welcome, Admin!</h2>
+      <p>Monitor and manage users, products, and orders across your supply chain platform with full privileges.</p>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature-card">
+      <h3>User Management</h3>
+      <p>View, add, edit, or deactivate platform users (manufacturers, distributors, retailers).</p>
+      <button class="btn" onclick="manageUsers()">Manage Users</button>
+    </div>
+    <div class="feature-card">
+      <h3>Product Controls</h3>
+      <p>Add new products, update details, or remove outdated entries from the global catalog.</p>
+      <button class="btn" onclick="manageProducts()">Manage Products</button>
+    </div>
+    <div class="feature-card">
+      <h3>Orders & Tracking</h3>
+      <p>Review all transactions and activity logs. Resolve reported issues and manage status.</p>
+      <button class="btn" onclick="viewOrders()">View Orders</button>
+    </div>
+    <div class="feature-card">
+      <h3>Analytics</h3>
+      <p>Review statistics, user engagement, inventory reports, and supply chain analytics.</p>
+      <button class="btn" onclick="viewAnalytics()">View Analytics</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Quick Admin Controls</h2>
+    <form onsubmit="handleSearchUser(event)">
+      <label for="search-user">Search User by Name/Email:</label>
+      <input type="text" id="search-user" placeholder="Enter user name or email" />
+      <button type="submit" class="btn">Search</button>
+    </form>
+    <form onsubmit="handleAddProduct(event)">
+      <label for="add-product">Add New Product:</label>
+      <input type="text" id="add-product" placeholder="Enter product name" />
+      <button type="submit" class="btn">Add Product</button>
+    </form>
+  </div>
+
+  <div class="container">
+    <h2>Platform Summary</h2>
+    <table>
+      <tr>
+        <th>Entity</th>
+        <th>Count</th>
+        <th>Active</th>
+        <th>Actions</th>
+      </tr>
+      <tr>
+        <td>Manufacturers</td>
+        <td>04</td>
+        <td>04</td>
+        <td><button class="btn" onclick="viewAll('Manufacturers')">View All</button></td>
+      </tr>
+      <tr>
+        <td>Distributors</td>
+        <td>06</td>
+        <td>05</td>
+        <td><button class="btn" onclick="viewAll('Distributors')">View All</button></td>
+      </tr>
+      <tr>
+        <td>Retailers</td>
+        <td>15</td>
+        <td>14</td>
+        <td><button class="btn" onclick="viewAll('Retailers')">View All</button></td>
+      </tr>
+      <tr>
+        <td>Products</td>
+        <td>250</td>
+        <td>240</td>
+        <td><button class="btn" onclick="manageEntity('Products')">Manage</button></td>
+      </tr>
+      <tr>
+        <td>Orders</td>
+        <td>1200</td>
+        <td>1180</td>
+        <td><button class="btn" onclick="trackOrders()">Track</button></td>
+      </tr>
+    </table>
+  </div>
+
+  <footer>
+    <p>© 2025 Seikozen Supply Chain Platform. Admin Control Panel.</p>
+  </footer>
+</body>
+</html>
